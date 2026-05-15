@@ -9,17 +9,10 @@ import AdminDashboard from "./pages/admin/Dashboard";
 // import ProductDetail from './pages/ProductDetail';
 // import Category from './pages/Category';
 
-import Header from "./components/HeaderTest";
-
 import "./App.css";
 
 function App() {
-  return (
-    <>
-      {/*<Header title="Dashboard" />*/}
-      {/*<AdminDashboard />*/}
-    </>
-  );
+  return <>{/*<AdminDashboard />*/}</>;
 }
 
 export default App;
