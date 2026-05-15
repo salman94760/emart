@@ -17,7 +17,8 @@ export default function LoginPage() {
           </h1>
 
           <p className="text-gray-300 text-lg leading-8">
-            Shop the latest fashion trends, premium products, and exclusive deals all in one place.
+            Shop the latest fashion trends, premium products, and exclusive
+            deals all in one place.
           </p>
 
           <div className="flex gap-6 mt-12">
@@ -117,7 +118,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-gray-500 mt-8">
-            Don&apos;t have an account?{' '}
+            Don&apos;t have an account?{" "}
             <span className="font-semibold text-black cursor-pointer hover:underline">
               Create Account
             </span>

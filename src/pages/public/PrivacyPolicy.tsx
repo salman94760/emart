@@ -1,1 +1,1 @@
-PrivacyPolicy.tsx
+PrivacyPolicy.tsx;

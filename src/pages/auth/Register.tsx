@@ -1,7 +1,6 @@
 export default function RegisterPage() {
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-white">
-
       {/* Left Side */}
       <div className="hidden lg:flex flex-col justify-center bg-black text-white p-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_white,_transparent_40%)]" />
@@ -18,8 +17,8 @@ export default function RegisterPage() {
           </h1>
 
           <p className="text-gray-300 text-lg leading-8">
-            Join thousands of shoppers and enjoy premium products,
-            exclusive offers, and fast checkout experience.
+            Join thousands of shoppers and enjoy premium products, exclusive
+            offers, and fast checkout experience.
           </p>
 
           <div className="flex gap-6 mt-12">
@@ -44,11 +43,8 @@ export default function RegisterPage() {
       {/* Right Side */}
       <div className="flex items-center justify-center p-6 sm:p-10 lg:p-16 bg-gray-50">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 sm:p-10">
-
           <div className="mb-8 text-center">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Register
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900">Register</h2>
 
             <p className="text-gray-500 mt-3">
               Create your account and start shopping today.
@@ -56,7 +52,6 @@ export default function RegisterPage() {
           </div>
 
           <form className="space-y-5">
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name
@@ -108,9 +103,7 @@ export default function RegisterPage() {
             <div className="flex items-start gap-2 text-sm text-gray-600">
               <input type="checkbox" className="mt-1 rounded" />
 
-              <p>
-                I agree to the Terms & Conditions and Privacy Policy.
-              </p>
+              <p>I agree to the Terms & Conditions and Privacy Policy.</p>
             </div>
 
             <button
@@ -119,7 +112,6 @@ export default function RegisterPage() {
             >
               Create Account
             </button>
-
           </form>
 
           <div className="relative my-8">
@@ -133,7 +125,6 @@ export default function RegisterPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-
             <button className="border border-gray-300 rounded-2xl py-3 font-medium hover:bg-gray-100 transition">
               Google
             </button>
@@ -141,17 +132,14 @@ export default function RegisterPage() {
             <button className="border border-gray-300 rounded-2xl py-3 font-medium hover:bg-gray-100 transition">
               Facebook
             </button>
-
           </div>
 
           <p className="text-center text-gray-500 mt-8">
             Already have an account?{" "}
-
             <span className="font-semibold text-black cursor-pointer hover:underline">
               Login
             </span>
           </p>
-
         </div>
       </div>
     </div>
