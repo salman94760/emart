@@ -23,7 +23,7 @@ const UserFooter = () => {
 
       {/* Copyright */}
       <p className="text-gray-500 text-sm">
-        © 2026 ShopEase. All rights reserved.
+        © 2026 SSSN. All rights reserved.
       </p>
     </div>
   );

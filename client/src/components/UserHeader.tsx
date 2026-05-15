@@ -3,7 +3,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-black">ShopEase</h1>
+        <h1 className="text-2xl font-bold text-black">SSSN</h1>
 
         <div className="hidden md:flex items-center gap-8 text-gray-700 font-medium">
           <Link to="/">Home</Link>
