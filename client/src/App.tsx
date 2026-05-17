@@ -1,18 +1,28 @@
 import { useState } from "react";
-// import Login from './pages/Login';
-// import Register from './pages/Register';
-// import Home from './pages/Home';
-// import Dashboard from './pages/Dashboard';
-import AdminDashboard from "./pages/admin/Dashboard";
-// import UserHome from './pages/UserHome';
-// import Checkout from './pages/Checkout';
-// import ProductDetail from './pages/ProductDetail';
-// import Category from './pages/Category';
+
+import { ToastContainer, Bounce, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
 function App() {
-  return <>{/*<AdminDashboard />*/}</>;
+  return (
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Slide}
+      />
+    </>
+  );
 }
 
 export default App;

@@ -16,7 +16,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <button className="border border-gray-300 px-5 py-2 rounded-xl hover:bg-gray-100 transition">
-            Login
+            <Link to="/login">Login</Link>
           </button>
 
           <button className="bg-black text-white px-5 py-2 rounded-xl hover:opacity-90 transition">

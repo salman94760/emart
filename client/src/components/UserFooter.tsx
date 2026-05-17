@@ -22,9 +22,7 @@ const UserFooter = () => {
       </div>
 
       {/* Copyright */}
-      <p className="text-gray-500 text-sm">
-        © 2026 SSSN. All rights reserved.
-      </p>
+      <p className="text-gray-500 text-sm">© 2026 SSSN. All rights reserved.</p>
     </div>
   );
 };
