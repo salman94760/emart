@@ -58,7 +58,7 @@ export default function AdminRegister() {
 
       toast.error(result?.message || "Something went wrong");
     } catch (error) {
-      toast.error("Server Error");
+      toast.error("Server Error", error);
     }
   };
 

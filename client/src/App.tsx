@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-import { ToastContainer, Bounce, Slide } from "react-toastify";
+import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";

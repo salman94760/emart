@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import AdminSidebar from "../components/AdminSidebar";
 import AdminHeader from "../components/AdminHeader";
 
-export default function UserLayout() {
+export default function AdminLayout() {
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex">

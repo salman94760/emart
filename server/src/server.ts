@@ -4,6 +4,8 @@ import dotenv  	from "dotenv";
 import connectDB from "./config/mongooseDb";
 
 import authRoutes from "./modules/auth/auth.routes";
+import attrRoutes from "./modules/attributes/attr.routes";
+import productRoutes from "./modules/product/product.routes";
 
 
 dotenv.config();
@@ -15,6 +17,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use(attrRoutes);
+app.use(productRoutes);
 
 const PORT = process.env.PORT || 4002;
 

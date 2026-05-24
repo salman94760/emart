@@ -1,38 +1,25 @@
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/Context";
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const { StatsCards } = useContext(AppContext);
+  useEffect(() => {
+    if (!localStorage.getItem("loginToken")) {
+      navigate("/admin/login");
+    }
+  }, [navigate]);
   return (
     <div className="p-10">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-        <div className="bg-white rounded-3xl p-8 shadow-sm">
-          <p className="text-gray-500">Total Sales</p>
-
-          <h2 className="text-4xl font-bold mt-3">₹45,000</h2>
-
-          <p className="text-green-500 mt-2 font-medium">+12% This Month</p>
-        </div>
-
-        <div className="bg-white rounded-3xl p-8 shadow-sm">
-          <p className="text-gray-500">Orders</p>
-
-          <h2 className="text-4xl font-bold mt-3">1,240</h2>
-
-          <p className="text-green-500 mt-2 font-medium">+8% This Week</p>
-        </div>
-
-        <div className="bg-white rounded-3xl p-8 shadow-sm">
-          <p className="text-gray-500">Customers</p>
-
-          <h2 className="text-4xl font-bold mt-3">890</h2>
-
-          <p className="text-green-500 mt-2 font-medium">+15% Growth</p>
-        </div>
-
-        <div className="bg-white rounded-3xl p-8 shadow-sm">
-          <p className="text-gray-500">Products</p>
-
-          <h2 className="text-4xl font-bold mt-3">320</h2>
-
-          <p className="text-red-500 mt-2 font-medium">12 Low Stock</p>
-        </div>
+        <StatsCards
+          text="Total Sales"
+          count="₹45,000"
+          month="+12% This Month"
+        />
+        <StatsCards text="Orders" count="1,240" month="+8% This Week" />
+        <StatsCards text="Customers" count="890" month="+15% Growth" />
+        <StatsCards text="Products" count="320" month="12 Low Stock" />
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm mt-10 p-8">

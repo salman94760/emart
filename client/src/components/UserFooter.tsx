@@ -4,7 +4,7 @@ const UserFooter = () => {
       <div>
         <h1 className="text-2xl font-bold">SSSN</h1>
 
-        <p className="text-gray-500 text-sm mt-1">Premium Fashion Store</p>
+        <p className="text-gray-500 text-sm mt-1">ActiveWear</p>
       </div>
 
       <div className="flex items-center gap-6 text-gray-600 font-medium">

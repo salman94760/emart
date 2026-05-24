@@ -183,3 +183,8 @@
     border-right-color: var(--border);
   }
 }
+
+.product-width-scroll {
+  width: 73%;
+  overflow: hidden;
+}

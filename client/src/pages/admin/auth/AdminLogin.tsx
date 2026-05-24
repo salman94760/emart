@@ -2,8 +2,8 @@ import { useRef, useContext } from "react";
 import { AppContext } from "../../../context/Context";
 import { useNavigate } from "react-router-dom";
 export default function AdminLogin() {
-  const emailRef = useRef<HTMLInputElement>("");
-  const passwordRef = useRef<HTMLInputElement>("");
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
@@ -20,8 +20,8 @@ export default function AdminLogin() {
       } else {
         toast.error(result.message);
       }
-    } catch (err) {
-      toast.error("Something went wrong");
+    } catch (err:unknown) {
+      toast.error("Something went wrong",err);
     }
   };
 
