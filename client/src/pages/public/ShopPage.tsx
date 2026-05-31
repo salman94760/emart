@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function ShopPage() {
   const products = [
     {
@@ -50,9 +50,7 @@ export default function ShopPage() {
       {/* Hero Section */}
       <section className="bg-black text-white py-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-4">
-            SSSN ActiveWear
-          </h1>
+          <h1 className="text-5xl font-bold mb-4">SSSN ActiveWear</h1>
 
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Premium streetwear & activewear collection for modern lifestyle.
@@ -99,7 +97,8 @@ export default function ShopPage() {
       <section className="max-w-7xl mx-auto px-6 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
-            <Link to={`/product-detail/${product.id}`}
+            <Link
+              to={`/product-detail/${product.id}`}
               key={product.id}
               className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition"
             >

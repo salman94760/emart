@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import AddProductInputField from "../../components/products/AddProductInputField";
+import AddProductInputField from "@components/admin/products/AddProductInputField";
 import { AppContext } from "../../context/Context";
 
 type FormDataType = {

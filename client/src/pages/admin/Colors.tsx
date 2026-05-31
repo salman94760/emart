@@ -1,4 +1,4 @@
-import AttributePage from "../../components/dashboard/AttributesPage";
+import AttributePage from "@components/admin/AttributesPage";
 
 const Sizes = () => {
   return <AttributePage type="color" label="Color" />;

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
-import { AppContext } from "../../../context/Context";
+import { ContextHook } from "@hooks/ContextHook";
 import { useNavigate } from "react-router-dom";
+import AdminAuthSideBar from "@components/admin/AdminAuthSideBar";
 
 type FormDataType = {
   name: "string";
@@ -19,7 +20,7 @@ export default function AdminRegister() {
     password: "",
     cpassword: "",
   });
-  const { toast, Register } = useContext(AppContext);
+  const { toast, Register } = ContextHook();
 
   const handleChange = (e: React.ChangeEvent<HtmlInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -66,43 +67,12 @@ export default function AdminRegister() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <div className="w-full max-w-6xl bg-white rounded-[40px] overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2">
         {/* Left Side */}
-        <div className="hidden lg:flex flex-col justify-center bg-black text-white p-16 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_white,_transparent_40%)]" />
 
-          <div className="relative z-10">
-            <p className="uppercase tracking-[0.3em] text-sm text-gray-400 mb-5">
-              SSSN ActiveWear
-            </p>
-
-            <h1 className="text-6xl font-bold leading-tight">
-              Admin
-              <br />
-              Registration
-            </h1>
-
-            <p className="text-gray-300 text-lg leading-8 mt-8 max-w-lg">
-              Create an admin account to manage products, orders, customers,
-              inventory, banners, coupons, and reports.
-            </p>
-
-            <div className="grid grid-cols-3 gap-6 mt-14">
-              <div>
-                <h2 className="text-4xl font-bold">10K+</h2>
-                <p className="text-gray-400 text-sm mt-2">Orders Managed</p>
-              </div>
-
-              <div>
-                <h2 className="text-4xl font-bold">500+</h2>
-                <p className="text-gray-400 text-sm mt-2">Products</p>
-              </div>
-
-              <div>
-                <h2 className="text-4xl font-bold">24/7</h2>
-                <p className="text-gray-400 text-sm mt-2">Monitoring</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AdminAuthSideBar
+          header="Admin Registration"
+          subheader="Create an admin account to manage products, orders, customers,
+              inventory, banners, coupons, and reports."
+        />
 
         {/* Right Side */}
         <div className="flex items-center justify-center p-8 lg:p-14 bg-gray-50">

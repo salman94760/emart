@@ -1,4 +1,8 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+
+// Loading path
+import Loading from "@/components/Loading";
 
 // layout papth
 import UserLayout from "../layouts/UserLayout";
@@ -19,7 +23,7 @@ import UserLogin from "../pages/auth/UserLogin";
 import UserRegister from "../pages/auth/UserRegister";
 
 // admin auth path
-import AdminLogin from "../pages/admin/auth/AdminLogin";
+const AdminLogin = lazy(() => import("../pages/admin/auth/AdminLogin"));
 import AdminRegister from "../pages/admin/auth/AdminRegister";
 
 // admin after login paths
@@ -35,36 +39,38 @@ import Category from "../pages/admin/Category";
 
 const UserRouter = () => {
   return (
-    <Routes>
-      <Route element={<UserLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/product-detail/:id" element={<ProductDetailPage />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/privacy-policy" element={<Policy />} />
-      </Route>
+    <Suspense fallback={ <Loading />}>
+      <Routes>
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/product-detail/:id" element={<ProductDetailPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy-policy" element={<Policy />} />
+        </Route>
 
-      <Route element={<AdminLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/add/product" element={<AddProduct />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/sizes" element={<Sizes />} />
-        <Route path="/colors" element={<Colors />} />
-        <Route path="/gender" element={<Gender />} />
-        <Route path="/mateial" element={<Material />} />
-        <Route path="/tag" element={<Tag />} />
-        <Route path="/category" element={<Category />} />
-      </Route>
+        <Route element={<AdminLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add/product" element={<AddProduct />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/sizes" element={<Sizes />} />
+          <Route path="/colors" element={<Colors />} />
+          <Route path="/gender" element={<Gender />} />
+          <Route path="/mateial" element={<Material />} />
+          <Route path="/tag" element={<Tag />} />
+          <Route path="/category" element={<Category />} />
+        </Route>
 
-      <Route path="/user/register" element={<UserRegister />} />
-      <Route path="/user/login" element={<UserLogin />} />
+        <Route path="/user/register" element={<UserRegister />} />
+        <Route path="/user/login" element={<UserLogin />} />
 
-      <Route path="/admin/register" element={<AdminRegister />} />
-      <Route path="/admin/login" element={<AdminLogin />} />
-    </Routes>
+        <Route path="/admin/register" element={<AdminRegister />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+      </Routes>
+    </Suspense>
   );
 };
 

@@ -1,71 +1,66 @@
-import { useRef, useContext } from "react";
-import { AppContext } from "../../../context/Context";
 import { useNavigate } from "react-router-dom";
-export default function AdminLogin() {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+import AdminAuthSideBar from "@components/admin/AdminAuthSideBar";
+import { ContextHook } from "@hooks/ContextHook";
 
+import Rules from "@/utils/Rules";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+export default function AdminLogin() {
   const navigate = useNavigate();
 
-  const { toast, Login } = useContext(AppContext);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
+  const { toast, Login } = ContextHook();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(Rules.LoginRule),
+  });
+
+  const onSubmit = async (data) => {
     try {
-      const result = await Login({ email, password });
+      const result = await Login(data);
+
       if (result?.success === true) {
         toast.success("Login successfully");
         navigate("/dashboard");
       } else {
         toast.error(result.message);
       }
-    } catch (err:unknown) {
-      toast.error("Something went wrong",err);
+    } catch (err) {
+      toast.error("Something went wrong");
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const email = emailRef.current?.value;
+  //   const password = passwordRef.current?.value;
+  //   try {
+  //     const result = await Login({ email, password });
+  //     if (result?.success === true) {
+  //       toast.success("Login successfully");
+  //       navigate("/dashboard");
+  //     } else {
+  //       toast.error(result.message);
+  //     }
+  //   } catch (err: unknown) {
+  //     toast.error("Something went wrong", err);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <div className="w-full max-w-6xl bg-white rounded-[40px] overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2">
         {/* Left Side */}
-        <div className="hidden lg:flex flex-col justify-center bg-black text-white p-16 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_white,_transparent_40%)]" />
-
-          <div className="relative z-10">
-            <p className="uppercase tracking-[0.3em] text-sm text-gray-400 mb-5">
-              SSSN ActiveWear
-            </p>
-
-            <h1 className="text-6xl font-bold leading-tight">
-              Admin
-              <br />
-              Dashboard
-            </h1>
-
-            <p className="text-gray-300 text-lg leading-8 mt-8 max-w-lg">
-              Manage products, orders, inventory, customers, banners, coupons,
-              reports and complete store operations.
-            </p>
-
-            <div className="grid grid-cols-3 gap-6 mt-14">
-              <div>
-                <h2 className="text-4xl font-bold">10K+</h2>
-                <p className="text-gray-400 text-sm mt-2">Orders</p>
-              </div>
-
-              <div>
-                <h2 className="text-4xl font-bold">500+</h2>
-                <p className="text-gray-400 text-sm mt-2">Products</p>
-              </div>
-
-              <div>
-                <h2 className="text-4xl font-bold">24/7</h2>
-                <p className="text-gray-400 text-sm mt-2">Monitoring</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AdminAuthSideBar
+          header="Admin Dashboard"
+          subheader="Manage products, orders, inventory, customers, banners, coupons, reports and complete store operations."
+        />
 
         {/* Right Side */}
         <div className="flex items-center justify-center p-8 lg:p-14 bg-gray-50">
@@ -78,7 +73,7 @@ export default function AdminLogin() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Email Address
@@ -86,10 +81,11 @@ export default function AdminLogin() {
 
                 <input
                   type="email"
-                  ref={emailRef}
+                  {...register("email")}
                   placeholder="Enter admin email"
                   className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
                 />
+                {errors.email && <p>{errors.email.message}</p>}
               </div>
 
               <div>
@@ -98,11 +94,12 @@ export default function AdminLogin() {
                 </label>
 
                 <input
-                  ref={passwordRef}
+                  {...register("password")}
                   type="password"
                   placeholder="Enter password"
                   className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
                 />
+                {errors.password && <p>{errors.password.message}</p>}
               </div>
 
               <div className="flex items-center justify-between text-sm">

@@ -36,9 +36,7 @@ export default function ProductDetailPage() {
           </h1>
 
           <div className="flex items-center gap-4 mt-6">
-            <h2 className="text-4xl font-bold text-black">
-              ₹{product.price}
-            </h2>
+            <h2 className="text-4xl font-bold text-black">₹{product.price}</h2>
 
             <span className="text-2xl text-gray-400 line-through">
               ₹{product.oldPrice}
@@ -51,9 +49,7 @@ export default function ProductDetailPage() {
 
           {/* Sizes */}
           <div className="mt-8">
-            <h3 className="font-semibold text-lg mb-4">
-              Select Size
-            </h3>
+            <h3 className="font-semibold text-lg mb-4">Select Size</h3>
 
             <div className="flex gap-4 flex-wrap">
               {product.sizes.map((size, index) => (
@@ -69,9 +65,7 @@ export default function ProductDetailPage() {
 
           {/* Colors */}
           <div className="mt-8">
-            <h3 className="font-semibold text-lg mb-4">
-              Select Color
-            </h3>
+            <h3 className="font-semibold text-lg mb-4">Select Color</h3>
 
             <div className="flex gap-4 flex-wrap">
               {product.colors.map((color, index) => (
@@ -87,9 +81,7 @@ export default function ProductDetailPage() {
 
           {/* Quantity */}
           <div className="mt-8">
-            <h3 className="font-semibold text-lg mb-4">
-              Quantity
-            </h3>
+            <h3 className="font-semibold text-lg mb-4">Quantity</h3>
 
             <input
               type="number"

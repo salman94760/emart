@@ -35,7 +35,6 @@ const Product = () => {
           </thead>
 
           <tbody className="divide-y">
-
             {state?.allProductItems?.map((v, index) => (
               <tr key={index} className="text-gray-500 border-b items-center">
                 <td className="border border-gray-300 p-3">

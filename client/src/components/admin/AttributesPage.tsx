@@ -8,7 +8,6 @@ type Props = {
 };
 
 const AttributePage = ({ type, label }: Props) => {
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { state, toast, handleSubmitAttr, handleFetchAttr, deleteAttributes } =
