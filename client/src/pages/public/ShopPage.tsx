@@ -1,49 +1,16 @@
+import { useEffect } from "react";
+import { ContextHook } from "@hooks/ContextHook";
 import { Link } from "react-router-dom";
+
 export default function ShopPage() {
-  const products = [
-    {
-      id: 1,
-      name: "Black Oversized T-Shirt",
-      price: 899,
-      image:
-        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 2,
-      name: "Gym Active Hoodie",
-      price: 1499,
-      image:
-        "https://images.unsplash.com/photo-1503341504253-dff4815485f1?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 3,
-      name: "Sport Cargo Joggers",
-      price: 1299,
-      image:
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 4,
-      name: "Premium Track Suit",
-      price: 1999,
-      image:
-        "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 5,
-      name: "Training Shorts",
-      price: 699,
-      image:
-        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 6,
-      name: "SSSN Classic Tee",
-      price: 999,
-      image:
-        "https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200&auto=format&fit=crop",
-    },
-  ];
+  const { state, toast, Product, Loader, loader } = ContextHook();
+  useEffect(() => {
+    if (!state.allProductItems) {
+      Product();
+    }
+  }, []);
+
+
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -83,6 +50,14 @@ export default function ShopPage() {
               <option>White</option>
               <option>Gray</option>
             </select>
+
+            <select className="border border-gray-300 rounded-2xl px-5 py-3 outline-none">
+              <option>Gender</option>
+              <option>Men</option>
+              <option>Women</option>
+              <option>Kids</option>
+              <option>Others</option>
+            </select>
           </div>
 
           <input
@@ -96,23 +71,23 @@ export default function ShopPage() {
       {/* Product Grid */}
       <section className="max-w-7xl mx-auto px-6 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
+          {state?.allProductItems?.map((product) => (
             <Link
-              to={`/product-detail/${product.id}`}
-              key={product.id}
+              to={`/product-detail/${product._id}`}
+              key={product._id}
               className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition"
             >
               <div className="h-80 overflow-hidden">
                 <img
                   src={product.image}
-                  alt={product.name}
+                  alt={product.pname}
                   className="w-full h-full object-cover hover:scale-105 transition duration-300"
                 />
               </div>
 
               <div className="p-6">
                 <h2 className="text-xl font-bold text-gray-800">
-                  {product.name}
+                  {product.pname}
                 </h2>
 
                 <div className="flex items-center justify-between mt-4">

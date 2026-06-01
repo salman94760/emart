@@ -85,11 +85,17 @@ const AuthServices = {
     }
   );
 
-  return {
-    success: true,
-    token,
-    user,
-  };
+  
+          return {
+  success: true,
+  token,
+  user: {
+    _id: user._id,
+    userType: user.type,
+    email: user.email,
+    name: user.name,
+  },
+};
 }
 }
 

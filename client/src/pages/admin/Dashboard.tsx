@@ -1,14 +1,21 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/Context";
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { StatsCards } = useContext(AppContext);
+  const { StatsCards, checkAuth, user, userType } = useContext(AppContext);
+  const [authChecked, setAuthChecked] = useState(false);
+
   useEffect(() => {
-    if (!localStorage.getItem("loginToken")) {
-      navigate("/admin/login");
-    }
-  }, [navigate]);
+    const loadAuth = async () => {
+      if (userType === "admin" && !user && !authChecked) {
+        await checkAuth();
+        setAuthChecked(true);
+      }
+    };
+
+    loadAuth();
+  }, [user, userType, authChecked]);
   return (
     <div className="p-10">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
@@ -16,10 +23,26 @@ export default function Dashboard() {
           text="Total Sales"
           count="₹45,000"
           month="+12% This Month"
+          cssColor="green"
         />
-        <StatsCards text="Orders" count="1,240" month="+8% This Week" />
-        <StatsCards text="Customers" count="890" month="+15% Growth" />
-        <StatsCards text="Products" count="320" month="12 Low Stock" />
+        <StatsCards
+          text="Orders"
+          count="1,240"
+          month="+8% This Week"
+          cssColor="yellow"
+        />
+        <StatsCards
+          text="Customers"
+          count="890"
+          month="+15% Growth"
+          cssColor="primary"
+        />
+        <StatsCards
+          text="Products"
+          count="320"
+          month="12 Low Stock"
+          cssColor="red"
+        />
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm mt-10 p-8">
@@ -28,7 +51,6 @@ export default function Dashboard() {
 
           <button className="font-semibold hover:underline">View All</button>
         </div>
-
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>

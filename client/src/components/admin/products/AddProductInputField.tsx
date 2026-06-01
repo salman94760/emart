@@ -3,8 +3,8 @@ const AddProductFileds = ({
   name,
   fieldtype,
   placeholder,
-  pvalue,
   pfunc,
+  perror,
 }) => {
   return (
     <div className="p-4">
@@ -13,13 +13,18 @@ const AddProductFileds = ({
       </label>
 
       <input
-        value={pvalue}
-        onChange={pfunc}
+        {...pfunc}
         type={fieldtype}
         name={name}
         placeholder={placeholder}
         className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
       />
+
+      {perror?.[name] && (
+        <p className="text-red-500 font-bold text-left px-5 py-2.5">
+          {perror[name]?.message}
+        </p>
+      )}
     </div>
   );
 };

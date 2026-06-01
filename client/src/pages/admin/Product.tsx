@@ -15,6 +15,7 @@ const Product = () => {
             <tr className="text-gray-500 border-b items-center">
               <th className="border border-gray-300 p-3">Action</th>
               <th className="border border-gray-300 p-3">#id</th>
+              <th className="border border-gray-300 p-3">Name</th>
               <th className="border border-gray-300 p-3">Slug</th>
               <th className="border border-gray-300 p-3">Description</th>
               <th className="border border-gray-300 p-3">Price</th>
@@ -55,6 +56,7 @@ const Product = () => {
                   </button>
                 </td>
                 <td className="border border-gray-300 p-3">{v._id}</td>
+                <td className="border border-gray-300 p-3">{v.pname}</td>
                 <td className="border border-gray-300 p-3">{v.slug}</td>
                 <td className="border border-gray-300 p-3">{v.description}</td>
                 <td className="border border-gray-300 p-3">{v.price}</td>

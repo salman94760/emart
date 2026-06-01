@@ -1,82 +1,41 @@
 import { useContext, useEffect, useState } from "react";
 import AddProductInputField from "@components/admin/products/AddProductInputField";
 import { AppContext } from "../../context/Context";
-
-type FormDataType = {
-  pname: "string";
-  slug: "string";
-  description: "string";
-  price: "string";
-  dprice: "string";
-  category: "string";
-  brand: "string";
-  qty: "integer";
-  sku: "string";
-  size: "string";
-  color: "string";
-  gender: "string";
-  material: "string";
-  tag: "string";
-};
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Rules from "@/utils/Rules";
 
 const AddProduct = () => {
   const { toast, state, handleFetchAllAttr, AddProduct } =
     useContext(AppContext);
-  const [attr, setAttr] = useState([]);
-  const [pdata, setPdata] = useState<FormDataType>({
-    pname: "",
-    slug: "",
-    description: "",
-    price: "",
-    dprice: "",
-    category: "",
-    brand: "",
-    qty: 0,
-    sku: "",
-    size: "",
-    color: "",
-    gender: "",
-    material: "",
-    tag: "",
-  });
+
+  const attr = state?.allAttrItems;
 
   useEffect(() => {
     handleFetchAllAttr();
   }, []);
 
-  useEffect(() => {
-    if (state?.allAttrItems) {
-      setAttr(state.allAttrItems);
-    }
-  }, [state.allAttrItems]);
+  const {
+    register: product,
+    handleSubmit: handleProductSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(Rules.ProductRules),
+  });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    setPdata({ ...pdata, [e.target.name]: e.target.value });
-  };
+  const onSubmit = async (data: any) => {
+    try {
+      const result = await AddProduct(data);
 
-  const handleProductSubmit = async (e) => {
-    e.preventDefault();
-    const result = await AddProduct(pdata);
-    if (result.success === true) {
-      toast.success("Product Added successfully");
-      setPdata({
-        pname: "",
-        slug: "",
-        description: "",
-        price: "",
-        dprice: "",
-        category: "",
-        brand: "",
-        qty: 0,
-        sku: "",
-        size: "",
-        color: "",
-        gender: "",
-        material: "",
-        tag: "",
-      });
+      if (result?.success) {
+        toast.success("Product Added Successfully");
+        reset();
+      } else {
+        toast.error(result?.message);
+      }
+    } catch {
+      toast.error("Something went wrong");
     }
   };
 
@@ -87,43 +46,44 @@ const AddProduct = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <form onSubmit={handleProductSubmit} className="space-y-5">
+        <form onSubmit={handleProductSubmit(onSubmit)} className="space-y-5">
           <div className="grid grid-cols-2 gap-4">
             <AddProductInputField
-              pvalue={pdata.pname}
-              pfunc={handleChange}
-              label="Product Name"
+              pfunc={product("pname")}
+              perror={errors}
+              label="Product Name*"
               name="pname"
               fieldtype="text"
               placeholder="Enter product name"
             />
+
             <AddProductInputField
-              pvalue={pdata.slug}
-              pfunc={handleChange}
+              pfunc={product("slug")}
+              perror={errors}
               label="Slug"
               name="slug"
               fieldtype="text"
               placeholder="Enter product slug"
             />
             <AddProductInputField
-              pvalue={pdata.description}
-              pfunc={handleChange}
-              label="Description"
+              pfunc={product("description")}
+              perror={errors}
+              label="Description*"
               name="description"
               fieldtype="text"
               placeholder="Enter product description"
             />
             <AddProductInputField
-              pvalue={pdata.price}
-              pfunc={handleChange}
-              label="Price"
+              pfunc={product("price")}
+              perror={errors}
+              label="Price*"
               name="price"
               fieldtype="text"
               placeholder="Enter product price"
             />
             <AddProductInputField
-              pvalue={pdata.dprice}
-              pfunc={handleChange}
+              pfunc={product("dprice")}
+              perror={errors}
               label="Discount Price"
               name="dprice"
               fieldtype="text"
@@ -132,12 +92,11 @@ const AddProduct = () => {
 
             <div className="p-4">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Category
+                Category*
               </label>
 
               <select
-                value={pdata.category}
-                onChange={handleChange}
+                {...product("category")}
                 name="category"
                 className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
               >
@@ -150,28 +109,33 @@ const AddProduct = () => {
                   );
                 })}
               </select>
+              {errors.category && (
+                <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                  {errors.category.message}
+                </p>
+              )}
             </div>
 
             <AddProductInputField
-              pvalue={pdata.brand}
-              pfunc={handleChange}
-              label="Brand"
+              pfunc={product("brand")}
+              perror={errors}
+              label="Brand*"
               name="brand"
               fieldtype="text"
               placeholder="Enter brand"
             />
 
             <AddProductInputField
-              pvalue={pdata.qty}
-              pfunc={handleChange}
-              label="Stock Quantity"
+              pfunc={product("qty")}
+              perror={errors}
+              label="Stock Quantity*"
               name="qty"
               fieldtype="number"
               placeholder="Enter product quantity"
             />
             <AddProductInputField
-              pvalue={pdata.sku}
-              pfunc={handleChange}
+              pfunc={product("sku")}
+              perror={errors}
               label="SKU"
               name="sku"
               fieldtype="text"
@@ -180,12 +144,11 @@ const AddProduct = () => {
 
             <div className="p-4">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Sizes
+                Sizes*
               </label>
 
               <select
-                value={pdata.size}
-                onChange={handleChange}
+                {...product("size")}
                 name="size"
                 className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
               >
@@ -198,16 +161,20 @@ const AddProduct = () => {
                   );
                 })}
               </select>
+              {errors.size && (
+                <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                  {errors.size.message}
+                </p>
+              )}
             </div>
 
             <div className="p-4">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Colors
+                Colors*
               </label>
 
               <select
-                value={pdata.color}
-                onChange={handleChange}
+                {...product("color")}
                 name="color"
                 className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
               >
@@ -220,16 +187,20 @@ const AddProduct = () => {
                   );
                 })}
               </select>
+              {errors.color && (
+                <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                  {errors.color.message}
+                </p>
+              )}
             </div>
 
             <div className="p-4">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Gender
+                Gender*
               </label>
 
               <select
-                value={pdata.gender}
-                onChange={handleChange}
+                {...product("gender")}
                 name="gender"
                 className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
               >
@@ -242,16 +213,20 @@ const AddProduct = () => {
                   );
                 })}
               </select>
+              {errors.gender && (
+                <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                  {errors.gender.message}
+                </p>
+              )}
             </div>
 
             <div className="p-4">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Fabric/Material
+                Fabric/Material*
               </label>
 
               <select
-                value={pdata.material}
-                onChange={handleChange}
+                {...product("material")}
                 name="material"
                 className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
               >
@@ -264,6 +239,11 @@ const AddProduct = () => {
                   );
                 })}
               </select>
+              {errors.material && (
+                <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                  {errors.material.message}
+                </p>
+              )}
             </div>
 
             <div className="p-4">
@@ -272,8 +252,7 @@ const AddProduct = () => {
               </label>
 
               <select
-                value={pdata.tag}
-                onChange={handleChange}
+                {...product("tag")}
                 name="tag"
                 className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
               >
@@ -286,6 +265,11 @@ const AddProduct = () => {
                   );
                 })}
               </select>
+              {errors.tag && (
+                <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                  {errors.tag.message}
+                </p>
+              )}
             </div>
 
             <AddProductInputField

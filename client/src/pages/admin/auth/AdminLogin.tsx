@@ -11,11 +11,11 @@ import * as z from "zod";
 export default function AdminLogin() {
   const navigate = useNavigate();
 
-  const { toast, Login } = ContextHook();
+  const { toast, Login, Loader, loader } = ContextHook();
 
   const {
     register,
-    handleSubmit,
+    handleSubmit: handleProductSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(Rules.LoginRule),
@@ -35,23 +35,6 @@ export default function AdminLogin() {
       toast.error("Something went wrong");
     }
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const email = emailRef.current?.value;
-  //   const password = passwordRef.current?.value;
-  //   try {
-  //     const result = await Login({ email, password });
-  //     if (result?.success === true) {
-  //       toast.success("Login successfully");
-  //       navigate("/dashboard");
-  //     } else {
-  //       toast.error(result.message);
-  //     }
-  //   } catch (err: unknown) {
-  //     toast.error("Something went wrong", err);
-  //   }
-  // };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
@@ -73,7 +56,10 @@ export default function AdminLogin() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <form
+              onSubmit={handleProductSubmit(onSubmit)}
+              className="space-y-5"
+            >
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Email Address
@@ -85,7 +71,11 @@ export default function AdminLogin() {
                   placeholder="Enter admin email"
                   className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
                 />
-                {errors.email && <p>{errors.email.message}</p>}
+                {errors.email && (
+                  <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -99,7 +89,11 @@ export default function AdminLogin() {
                   placeholder="Enter password"
                   className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none focus:ring-2 focus:ring-black bg-white"
                 />
-                {errors.password && <p>{errors.password.message}</p>}
+                {errors.password && (
+                  <p className="text-red-500 font-bold text-left px-5 py-2.5">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center justify-between text-sm">
@@ -116,12 +110,16 @@ export default function AdminLogin() {
                 </button>
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-4 rounded-2xl text-lg font-semibold hover:opacity-90 transition"
-              >
-                Login to Dashboard
-              </button>
+              {loader ? (
+                <Loader />
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full bg-black text-white py-4 rounded-2xl text-lg font-semibold hover:opacity-90 transition"
+                >
+                  Login to Dashboard
+                </button>
+              )}
             </form>
 
             <div className="relative my-8">

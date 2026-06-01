@@ -1,4 +1,18 @@
+import { useEffect } from "react";
+import { ContextHook } from "@hooks/ContextHook";
+import { Link } from "react-router-dom";
 export default function HomePage() {
+  const { state, toast, Product, Loader, loader } = ContextHook();
+  useEffect(() => {
+    if (!state.allProductItems) {
+      Product();
+    }
+  }, []);
+
+  const categories = [
+    ...new Set(state?.allProductItems?.map((item) => item.gender)),
+  ];
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
@@ -58,8 +72,10 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {["Men", "Women", "Shoes", "Accessories"].map((item) => (
-            <div
+          {/*["Men", "Women", "Shoes", "Accessories"].map((item) => (*/}
+          {categories?.map((item) => (
+            <Link
+              to={`/shop?gender=${item}`}
               key={item}
               className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition"
             >
@@ -74,7 +90,7 @@ export default function HomePage() {
 
                 <p className="text-gray-500 mt-2">Explore premium collection</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

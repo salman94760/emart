@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ContextHook } from "@hooks/ContextHook";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AdminAuthSideBar from "@components/admin/AdminAuthSideBar";
 
 type FormDataType = {
@@ -20,7 +20,7 @@ export default function AdminRegister() {
     password: "",
     cpassword: "",
   });
-  const { toast, Register } = ContextHook();
+  const { toast, Register, Loader, loader } = ContextHook();
 
   const handleChange = (e: React.ChangeEvent<HtmlInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -161,19 +161,26 @@ export default function AdminRegister() {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-4 rounded-2xl text-lg font-semibold hover:opacity-90 transition"
-              >
-                Create Admin Account
-              </button>
+              {loader ? (
+                <Loader />
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full bg-black text-white py-4 rounded-2xl text-lg font-semibold hover:opacity-90 transition"
+                >
+                  Create Admin Account
+                </button>
+              )}
             </form>
 
             <p className="text-center text-gray-500 mt-8">
               Already have an admin account?{" "}
-              <span className="font-semibold text-black cursor-pointer hover:underline">
+              <Link
+                to="/admin/login"
+                className="font-semibold text-black cursor-pointer hover:underline"
+              >
                 Login
-              </span>
+              </Link>
             </p>
           </div>
         </div>

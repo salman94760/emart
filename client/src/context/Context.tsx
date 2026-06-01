@@ -1,7 +1,8 @@
-import { createContext, ReactNode, useReducer } from "react";
+import { createContext, ReactNode, useReducer, useState } from "react";
 import { initialState, reducer } from "./Reducer";
 import api from "../services/api";
-import StatsCards from "../components/StatsCard";
+import StatsCards from "@components/StatsCard";
+import Loader from "@components/Loader";
 
 import { Dispatch } from "react";
 import { toast } from "react-toastify";
@@ -42,6 +43,20 @@ type AppProviderProps = {
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [loader, setLoader] = useState(false);
+  const [user, setUser] = useState(null);
+  const userType = localStorage.getItem("userType") || "";
+
+  const checkAuth = async () => {
+    try {
+      const res = await api.get("/api/auth/check-auth");
+      setUser(res.data.user);
+    } catch {
+      navigate("/admin/login");
+    } finally {
+      setLoader(false);
+    }
+  };
 
   const Register = async (data) => {
     try {
@@ -66,10 +81,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     try {
       const res = await api.post("api/auth/login", data);
       if (res.data.success === true) {
-        const result = res.data.data;
+        const result = res.data;
         localStorage.setItem("loginuser", result.user.name);
         localStorage.setItem("loginemail", result.user.email);
-        localStorage.setItem("loginToken", result.token);
+        localStorage.setItem("userType", result.user.userType);
         return {
           success: true,
           data: res.data,
@@ -196,6 +211,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         state,
         dispatch,
         toast,
+        checkAuth,
         Register,
         Login,
         StatsCards,
@@ -205,6 +221,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         deleteAttributes,
         AddProduct,
         Product,
+        Loader,
+        loader,
+        userType,
       }}
     >
       {children}

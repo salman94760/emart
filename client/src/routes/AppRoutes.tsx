@@ -5,41 +5,41 @@ import { Routes, Route } from "react-router-dom";
 import Loading from "@/components/Loading";
 
 // layout papth
-import UserLayout from "../layouts/UserLayout";
-import AdminLayout from "../layouts/AdminLayout";
+import UserLayout from "@/layouts/UserLayout";
+import AdminLayout from "@/layouts/AdminLayout";
 
 // public path
-import Home from "../pages/public/Home";
-import ShopPage from "../pages/public/ShopPage";
-import ProductDetailPage from "../pages/public/ProductDetailPage";
-import About from "../pages/public/About";
-import Contact from "../pages/public/Contact";
-import FAQ from "../pages/public/FAQ";
-import Terms from "../pages/public/Terms";
-import Policy from "../pages/public/PrivacyPolicy";
+import Home from "@pages/public/Home";
+import ShopPage from "@pages/public/ShopPage";
+import ProductDetailPage from "@pages/public/ProductDetailPage";
+import About from "@pages/public/About";
+import Contact from "@pages/public/Contact";
+import FAQ from "@pages/public/FAQ";
+import Terms from "@pages/public/Terms";
+import Policy from "@pages/public/PrivacyPolicy";
 
 // auth path
-import UserLogin from "../pages/auth/UserLogin";
-import UserRegister from "../pages/auth/UserRegister";
+import UserLogin from "@pages/auth/UserLogin";
+import UserRegister from "@pages/auth/UserRegister";
 
 // admin auth path
-const AdminLogin = lazy(() => import("../pages/admin/auth/AdminLogin"));
-import AdminRegister from "../pages/admin/auth/AdminRegister";
+const AdminLogin = lazy(() => import("@adminpage/auth/AdminLogin"));
+const AdminRegister = lazy(() => import("@adminpage/auth/AdminRegister"));
 
 // admin after login paths
-import Dashboard from "../pages/admin/Dashboard";
-import AddProduct from "../pages/admin/AddProduct";
-import Product from "../pages/admin/Product";
-import Sizes from "../pages/admin/Sizes";
-import Colors from "../pages/admin/Colors";
-import Gender from "../pages/admin/Gender";
-import Material from "../pages/admin/Material";
-import Tag from "../pages/admin/Tag";
-import Category from "../pages/admin/Category";
+import Dashboard from "@adminpage/Dashboard";
+import AddProduct from "@adminpage/AddProduct";
+import Product from "@adminpage/Product";
+import Sizes from "@adminpage/Sizes";
+import Colors from "@adminpage/Colors";
+import Gender from "@adminpage/Gender";
+import Material from "@adminpage/Material";
+import Tag from "@adminpage/Tag";
+import Category from "@adminpage/Category";
 
 const UserRouter = () => {
   return (
-    <Suspense fallback={ <Loading />}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
